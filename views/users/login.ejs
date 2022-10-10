@@ -1,0 +1,61 @@
+<%layout('layouts/boilerplate')%>
+<div class="row">
+  <h1 class="text-center">Login</h1>
+  <div class="col-6 offset-3">
+    <form action="/login" method="POST" class="validation-form" novalidate>
+      <!--Usuario-->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Enter the correct password.</div>
+      </div>
+      <!--Contraseña-->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Enter a Password.</div>
+      </div>
+      <button class="btn btn-success">Login</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  //Esto es para que mejoremos el estilo de las validaciones del lado del cliente.
+  //En cada input debemos ponerle required y en el form (NEW Y EDIT) una clase que es la validation-form y novalidate
+  //ESTO ES DE BOOTSTRAP5
+  (() => {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll(".validation-form");
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

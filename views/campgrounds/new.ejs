@@ -1,0 +1,139 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campgrounds"
+      method="POST"
+      novalidate
+      class="validation-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          name="campground[title]"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div id="emailHelp" class="form-text">
+          Escriba el nombre del Nuevo Campamento.
+        </div>
+        <div class="invalid-feedback">Enter a Name for the New Camp.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="campground[location]"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Enter the location of the New Camp.</div>
+        <div id="emailHelp" class="form-text">
+          Escriba el nombre de la ubicación del Nuevo Campamento.
+        </div>
+      </div>
+
+      <!-- ESTE ES EL METODO PARA CARGAR ARCHIVOS (bootstrap) -->
+      <div class="mb-3">
+        <label for="image" class="form-label"
+          >Multiple files input example</label
+        >
+        <input
+          class="form-control"
+          type="file"
+          id="image"
+          name="image"
+          multiple
+        />
+      </div>
+      <!--ESTE ES EL METODO DE URL QUE LO COMENTAMOS PORQUE VAMOS A AGREGAR EL METODO DE CARGAR ARCHIVOS.-->
+      <!-- <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input
+          type="text"
+          id="image"
+          name="campground[image]"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Enter a URL image for the New Camp.</div>
+      </div> -->
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="0.000"
+            id="price"
+            aria-label="price"
+            aria-describedby="price-label"
+            name="campground[price]"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Enter the price of the New Camp.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Decription</label>
+        <textarea
+          type="text"
+          id="description"
+          name="campground[description]"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+          Enter the description of the New Camp.
+        </div>
+      </div>
+
+      <button class="btn btn-success">Agregar Campground</button>
+    </form>
+
+    <a href="/campgrounds">All Campgrounds</a>
+  </div>
+</div>
+
+<script>
+  //Esto es para que mejoremos el estilo de las validaciones del lado del cliente.
+  //En cada input debemos ponerle required y en el form (NEW Y EDIT) una clase que es la validation-form y novalidate
+  //ESTO ES DE BOOTSTRAP5
+  (() => {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll(".validation-form");
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

@@ -1,0 +1,140 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">Edit Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campgrounds/<%=campground._id %>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validation-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          name="campground[title]"
+          class="form-control"
+          value="<%=campground.title%>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="campground[location]"
+          class="form-control"
+          value="<%=campground.location%>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <!-- Esto es para que el usuario modifique sus fotos agregando fotos de su galeria, word de: cargar imagenes de usuario no por link -->
+      <div class="mb-3">
+        <!-- ESTE ES EL METODO PARA CARGAR ARCHIVOS (bootstrap) -->
+        <div class="mb-3">
+          <label for="image" class="form-label"
+            >Multiple files input example</label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="image"
+            name="image"
+            multiple
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="0.000"
+            id="price"
+            aria-label="price"
+            aria-describedby="price-label"
+            name="campground[price]"
+            value="<%=campground.price%>"
+            required
+          />
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Decription</label>
+        <textarea
+          type="text"
+          id="description"
+          name="campground[description]"
+          class="form-control"
+          required
+        >
+        <%=campground.description%></textarea
+        >
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <h5>Delete Images</h5>
+      <div class="row row-cols-1 row-cols-md-4 g-4 mb-3">
+        <% campground.images.forEach((img, i) => { %>
+        <div class="col">
+          <div class="card">
+            <img class="card-img" src="<%=img.url%>" alt="" />
+            <div class="card-img-overlay text-end pt-1 pe-2">
+              <label class="visually-hidden" for="image-<%=i%>">Delete?</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="deleteImages[]"
+                value="<%= img.filename %>"
+                id="image-<%=i%>"
+              />
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <button class="btn btn-primary">Actualizar Campground</button>
+    </form>
+
+    <a href="/campgrounds/<%=campground._id%> ">Back To Campgrounds</a>
+  </div>
+</div>
+
+<script>
+  //Esto es para que mejoremos el estilo de las validaciones del lado del cliente.
+  //En cada input debemos ponerle required y en el form (NEW Y EDIT) una clase que es la validation-form y novalidate
+  //ESTO ES DE BOOTSTRAP5
+  (() => {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll(".validation-form");
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

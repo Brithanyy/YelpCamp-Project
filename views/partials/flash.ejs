@@ -1,0 +1,25 @@
+<!--Le agregaremos la logica para que el flash aparece si creamos un campamento, si boramos un campamento, si editamos un comentario, si lo creamos e eliminamos. De lo contrario que no aparezca nada-->
+<% if(success && success.length){%>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <%=success%>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %>
+<!--Logica para el flash de error-->
+<% if(error && error.length){%>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%=error%>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  <% } %>
+  
